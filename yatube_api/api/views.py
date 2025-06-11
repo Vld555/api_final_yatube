@@ -42,12 +42,12 @@ class CommentViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         # post_id из lookup и _pk добавляет nestedDefaultRouter
-        post_id = self.kwargs['post_id_pk']
+        post_id = self.kwargs['post_id']
         post = get_object_or_404(Post, id=post_id)
         return post.comments.all()
 
     def perform_create(self, serializer):
-        post_id = self.kwargs['post_id_pk']
+        post_id = self.kwargs['post_id']
         post = get_object_or_404(Post, id=post_id)
         serializer.save(author=self.request.user, post=post)
 
